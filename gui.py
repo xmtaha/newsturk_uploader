@@ -7,7 +7,16 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QH
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from uploader import KATEGORILER
 
-CONFIG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+def get_app_dir():
+    """Uygulamanın çalışma dizinini al (PyInstaller ile uyumlu)"""
+    if getattr(sys, 'frozen', False):
+        
+        return os.path.dirname(sys.executable)
+    else:
+        
+        return os.path.dirname(os.path.abspath(__file__))
+
+CONFIG_FILE = os.path.join(get_app_dir(), "config.json")
 
 def load_config():
     """JSON dosyasından konfigürasyonu yükle"""
